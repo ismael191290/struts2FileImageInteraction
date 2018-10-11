@@ -1,0 +1,36 @@
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <!-- Configuration for the default package. -->
+    <package name="default" extends="struts-default">
+        
+        <interceptors>
+            <interceptor name="upper" class="com.MyInterceptor"></interceptor>
+        </interceptors>
+
+        <action name="login" class="com.Login">
+            <interceptor-ref name="params"/>  
+            <interceptor-ref name="execAndWait"/>  
+            <interceptor-ref name="upper"></interceptor-ref>
+            <result name="success">uploadImage.jsp</result>
+            <result name="wait">myintermediatepage.jsp</result>  
+        </action>
+        
+        <action name="userImage" class="com.imagen.FileUploadAction">  
+            
+            <interceptor-ref name="fileUpload">  
+                <param name="maximumSize">2097152</param>  
+                <param name="allowedTypes">image/png,image/gif,image/jpeg,image/pjpeg</param>  
+            </interceptor-ref>  
+            
+            <interceptor-ref name="defaultStack"></interceptor-ref>  
+            <result name="success">successImagen.jsp</result>  
+            <result name="input">UserImage.jsp</result>  
+        </action>  
+        
+        
+
+    </package>
+</struts>
